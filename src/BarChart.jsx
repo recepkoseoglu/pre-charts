@@ -1,9 +1,9 @@
-import React from "react";
-import {ShallowComponent, Generator, Class, Arrays, Maps} from "robe-react-commons";
+import React, {Component} from "react";
 import "./BarChart.css";
-import Legend from "./Legend";
+import Arrays from "./utils/Arrays";
 
-export default class BarChart extends ShallowComponent {
+
+export default class BarChart extends Component {
 
     static propTypes: Map = {
         /**
@@ -53,12 +53,11 @@ export default class BarChart extends ShallowComponent {
                         {this.__renderXAxis()}
                     </div>
                 </div>
-                <Legend data={this.legends} width={this.props.width}/>
             </div>
         )
     }
 
-    __renderBars(data: Array, meta: Array) {
+    __renderBars = (data: Array, meta: Array) => {
         let metaArr = [];
         let xAxisWidth = this.__xAxisWidth();
         let sumXAxisWidth = 0;
@@ -107,10 +106,10 @@ export default class BarChart extends ShallowComponent {
                 </g>)
         }
         return metaArr;
-    }
+    };
 
 
-    __renderYAxis() {
+    __renderYAxis = () => {
         let maxYAxis = this.__maxYAxis();
         let axisArr = [];
         for (let i = 0; i < 4; i++) {
@@ -122,9 +121,9 @@ export default class BarChart extends ShallowComponent {
                 </div>);
         }
         return axisArr;
-    }
+    };
 
-    __renderXAxis() {
+    __renderXAxis = () => {
         let data = this.props.data,
             maxYAxis = this.__xAxisWidth(),
             axisArr = [];
@@ -137,9 +136,9 @@ export default class BarChart extends ShallowComponent {
                 </div>);
         }
         return axisArr;
-    }
+    };
 
-    __maxYAxis() {
+    __maxYAxis = () => {
         let data = this.props.data,
             maxYAxis = 0;
         for (let i in data) {
@@ -152,24 +151,24 @@ export default class BarChart extends ShallowComponent {
         let a = maxYAxis > 1000 ? 1000 : maxYAxis > 100 ? 100 : maxYAxis > 50 ? 50 : maxYAxis > 10 ? 10 : 1;
 
         return (~~((maxYAxis + a - 1) / a) * a);
-    }
+    };
 
-    __xAxisWidth() {
+    __xAxisWidth = () => {
         return (this.props.width - 1) / this.props.data.length;
-    }
+    };
 
-    __barHeight(value: Number) {
+    __barHeight = (value: Number) => {
         let maxYAxis = this.__maxYAxis();
         return ((this.props.height * ((value * 100) / maxYAxis)) / 100);
-    }
+    };
 
-    __barWidth(data: Object) {
+    __barWidth = (data: Object) => {
         let fields = this.__getFields(data),
             minWidth = this.__xAxisWidth() / fields.length;
         return minWidth < 30 ? minWidth : 30;
-    }
+    };
 
-    __getFields(data: Object) {
+    __getFields = (data: Object) => {
         let arr = [];
         for (let key in data) {
             if (data.hasOwnProperty(key)) {
@@ -183,9 +182,9 @@ export default class BarChart extends ShallowComponent {
             }
         }
         return arr;
-    }
+    };
 
-    __showTooltip(e: Object) {
+    __showTooltip = (e: Object) => {
         if (this.tooltip === undefined) {
             this.tooltip = document.getElementById("tooltip");
         }
@@ -196,23 +195,23 @@ export default class BarChart extends ShallowComponent {
 
         this.tooltip.innerHTML = tooltipText;
         this.tooltip.style.backgroundColor = fill;
-    }
+    };
 
-    __hideTooltip(e: Object) {
+    __hideTooltip = (e: Object) => {
         if (this.tooltip === undefined)
             this.tooltip = document.getElementById("tooltip");
         this.tooltip.style.visibility = "hidden";
-    }
+    };
 
-    __moveTooltip(e: Object) {
+    __moveTooltip = (e: Object) => {
         if (this.tooltip === undefined)
             this.tooltip = document.getElementById("tooltip");
 
         this.tooltip.style.left = (e.clientX + 10) + "px";
         this.tooltip.style.top = (e.clientY + 10) + "px";
-    }
+    };
 
-    __randColor(index: Number) {
+    __randColor = (index: Number) => {
         let colors = ["#F44336", "#673AB7", "#2196F3", "#FF5722", "#9C27B0", "#FFC107", "#FF9800", "#4CAF50", "#00796B", "#009688", "#3F51B5"];
         if (index !== undefined) {
             return colors[index % colors.length];

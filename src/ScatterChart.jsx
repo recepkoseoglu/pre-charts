@@ -1,9 +1,8 @@
-import React from "react";
-import {ShallowComponent, Generator, Class, Arrays, Maps} from "robe-react-commons";
+import React, {Component} from "react";
+import Arrays from "./utils/Arrays";
 import "./ScatterChart.css";
-import Legend from "./Legend";
 
-export default class ScatterChart extends ShallowComponent {
+export default class ScatterChart extends Component {
 
     static propTypes: Map = {
         /**
@@ -52,12 +51,11 @@ export default class ScatterChart extends ShallowComponent {
                         {this.__renderXAxis()}
                     </div>
                 </div>
-                <Legend data={this.legends} width={this.props.width}/>
             </div>
         )
     }
 
-    __renderScatters(data: Array, meta: Array) {
+    __renderScatters = (data: Array, meta: Array) => {
         let metaArr = [];
         for (let i in data) {
             let item = data[i];
@@ -93,10 +91,10 @@ export default class ScatterChart extends ShallowComponent {
             }
         }
         return metaArr;
-    }
+    };
 
 
-    __renderYAxis() {
+    __renderYAxis = () => {
         let max = this.__maxAxis();
         let height = this.props.height / 4;
         let axisArr = [];
@@ -109,9 +107,9 @@ export default class ScatterChart extends ShallowComponent {
                 </div>);
         }
         return axisArr;
-    }
+    };
 
-    __renderXAxis() {
+    __renderXAxis = () => {
         let max = this.__maxAxis();
         let width = (this.props.width - 1) / 5;
         let axisArr = [];
@@ -124,10 +122,10 @@ export default class ScatterChart extends ShallowComponent {
                 </div>);
         }
         return axisArr;
-    }
+    };
 
 
-    __maxAxis() {
+    __maxAxis = () => {
         let data = this.props.data;
         let maxYAxis = 0;
         let maxXAxis = 0;
@@ -152,19 +150,19 @@ export default class ScatterChart extends ShallowComponent {
         };
 
         return max;
-    }
+    };
 
-    __pointY(value: Number) {
+    __pointY = (value: Number) => {
         let max = this.__maxAxis();
         return this.props.height - ((this.props.height * ((value * 100) / max.y)) / 100);
-    }
+    };
 
-    __pointX(value: Number) {
+    __pointX = (value: Number) => {
         let max = this.__maxAxis();
         return ((this.props.width * ((value * 100) / max.x)) / 100);
-    }
+    };
 
-    __getFields(data: Object) {
+    __getFields = (data: Object) => {
         let arr = [];
         for (let key in data) {
             if (data.hasOwnProperty(key)) {
@@ -178,9 +176,9 @@ export default class ScatterChart extends ShallowComponent {
             }
         }
         return arr;
-    }
+    };
 
-    __showTooltip(e: Object) {
+    __showTooltip = (e: Object) => {
         if (this.tooltip === undefined) {
             this.tooltip = document.getElementById("tooltip");
         }
@@ -191,23 +189,22 @@ export default class ScatterChart extends ShallowComponent {
 
         this.tooltip.innerHTML = tooltipText;
         this.tooltip.style.backgroundColor = fill;
-    }
-
-    __hideTooltip(e: Object) {
+    };
+    __hideTooltip = (e: Object) => {
         if (this.tooltip === undefined)
             this.tooltip = document.getElementById("tooltip");
         this.tooltip.style.visibility = "hidden";
-    }
+    };
 
-    __moveTooltip(e: Object) {
+    __moveTooltip = (e: Object) => {
         if (this.tooltip === undefined)
             this.tooltip = document.getElementById("tooltip");
 
         this.tooltip.style.left = (e.clientX + 10) + "px";
         this.tooltip.style.top = (e.clientY + 10) + "px";
-    }
+    };
 
-    __randColor(index: Number) {
+    __randColor = (index: Number) => {
         let colors = ["#F44336", "#FF9800", "#FF5722", "#9C27B0", "#673AB7", "#2196F3", "#FFC107", "#4CAF50", "#00796B", "#009688", "#3F51B5"];
         if (index !== undefined) {
             return colors[index % colors.length];

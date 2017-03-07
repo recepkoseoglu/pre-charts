@@ -1,10 +1,7 @@
-import React from "react";
-import {ShallowComponent, Generator, Class, Arrays, Maps} from "robe-react-commons";
+import React, {Component} from "react";
 import "./PieChart.css";
-import Legend from "./Legend";
-import FaIcon from "../faicon/FaIcon";
 
-export default class PieChart extends ShallowComponent {
+export default class PieChart extends Component {
 
     static propTypes: Map = {
         /**
@@ -55,19 +52,18 @@ export default class PieChart extends ShallowComponent {
         return (
             <div className="rb-pie-chart" style={{width: this.props.size, height: this.props.size}}>
                 <div className="rb-pie-chart-back-tool" style={{display: this.state.clicked ? "inherit" : "none"}}>
-                    <FaIcon code="fa-undo" onClick={this.__onClickReset}/>
+                    <button>asd</button>
                 </div>
                 <svg className="rb-pie-chart-svg">
                     {this.__renderPies(data, 360, 0, depth, depth - 1)}
                     {root}
                 </svg>
                 <div className="tooltip" id="tooltip"></div>
-                <Legend data={this.legends} width={this.props.size}/>
             </div>
         )
     }
 
-    __renderPies(data: Array, percentage: Number, rotation: Number, depth: Number, depthIndex: Number) {
+    __renderPies = (data: Array, percentage: Number, rotation: Number, depth: Number, depthIndex: Number) => {
         if (!data || data.length <= 0)
             return [];
 
@@ -86,9 +82,9 @@ export default class PieChart extends ShallowComponent {
 
         piesArr.push.apply(piesArr, this.__createPath(data, mRadius, percentage, rotation, depth, depthIndex));
         return piesArr;
-    }
+    };
 
-    __createPath(data: Array, radius: Number, percentage: Number, rotaion: Number, depth: Number, depthIndex: Number) {
+    __createPath = (data: Array, radius: Number, percentage: Number, rotaion: Number, depth: Number, depthIndex: Number) => {
         let sectors = [],
             mRadius = radius,
             origin = this.props.size / 2,
@@ -159,22 +155,22 @@ export default class PieChart extends ShallowComponent {
             mRotation = mRotation + mPercentage;
         }.bind(this));
         return sectors
-    }
+    };
 
-    __onClick(data: Object) {
+    __onClick = (data: Object) => {
         let arr = [];
         arr.push(data);
         let depth = this.__depthTree(arr);
         if (depth > 1) {
             this.setState({data: arr, clicked: true});
         }
-    }
+    };
 
-    __onClickReset() {
+    __onClickReset = () => {
         this.setState({data: this.props.data, clicked: false})
-    }
+    };
 
-    __depthTree(data: Array) {
+    __depthTree = (data: Array) => {
         if (!data || data.length <= 0) {
             return 0;
         }
@@ -183,18 +179,18 @@ export default class PieChart extends ShallowComponent {
             depth = Math.max(depth, this.__depthTree(data[i].children));
         }
         return 1 + depth;
-    }
+    };
 
-    __sumValues(data: Array) {
+    __sumValues = (data: Array) => {
         let max = 0;
         data.map(function (item, key) {
             let value = item.value;
             max += value;
         });
         return max;
-    }
+    };
 
-    __showTooltip(e: Object) {
+    __showTooltip = (e: Object) => {
         if (this.tooltip === undefined) {
             this.tooltip = document.getElementById("tooltip");
         }
@@ -205,23 +201,23 @@ export default class PieChart extends ShallowComponent {
 
         this.tooltip.innerHTML = tooltipText;
         this.tooltip.style.backgroundColor = fill;
-    }
+    };
 
-    __hideTooltip(e: Object) {
+    __hideTooltip = (e: Object) => {
         if (this.tooltip === undefined)
             this.tooltip = document.getElementById("tooltip");
         this.tooltip.style.visibility = "hidden";
-    }
+    };
 
-    __moveTooltip(e: Object) {
+    __moveTooltip = (e: Object) => {
         if (this.tooltip === undefined)
             this.tooltip = document.getElementById("tooltip");
 
         this.tooltip.style.left = (e.clientX + 10) + "px";
         this.tooltip.style.top = (e.clientY + 10) + "px";
-    }
+    };
 
-    __randColor(index: Number) {
+    __randColor = (index: Number) => {
         let colors = ["#F44336", "#2196F3", "#E91E63", "#00BCD4", "#673AB7", "#009688", "#3F51B5", "#4CAF50", "#FF9800", "#FF5722", "#FFC107"];
         if (index !== undefined) {
             return colors[parseInt(Math.abs(index % colors.length)) % (colors.length)];

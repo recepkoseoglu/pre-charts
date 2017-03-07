@@ -3,3 +3,4 @@ export {default as AreaChart} from "./AreaChart";
 export {default as LineChart} from "./LineChart";
 export {default as ScatterChart} from "./ScatterChart";
 export {default as PieCart} from "./PieChart";
+export {default as Arrays} from "./utils/Arrays";
