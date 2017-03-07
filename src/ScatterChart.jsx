@@ -38,7 +38,7 @@ export default class ScatterChart extends Component {
 
     render() {
         return (
-            <div id="scatter" style={{marginLeft: 40}}>
+            <div style={{marginLeft: 40, marginBottom: 30}}>
                 <div className="rb-scatter-chart" style={{width: this.props.width, height: this.props.height}}>
                     <svg className="rb-scatter-chart-svg">
                         {this.__renderScatters(this.props.data, this.props.meta)}

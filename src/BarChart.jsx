@@ -39,9 +39,8 @@ export default class BarChart extends Component {
 
     render() {
         return (
-            <div id="bar" style={{marginLeft: 40, width: this.props.width}}>
-                <div className="rb-bar-chart"
-                     style={{width: this.props.width, height: this.props.height}}>
+            <div style={{marginLeft: 40, marginBottom: 30}}>
+                <div className="rb-bar-chart" style={{width: this.props.width, height: this.props.height}}>
                     <svg className="rb-bar-chart-svg">
                         {this.__renderBars(this.props.data, this.props.meta)}
                     </svg>

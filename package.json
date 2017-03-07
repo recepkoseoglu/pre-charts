@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node scripts/start.js --colors",
     "site": "node scripts/site.js",
     "build": "rimraf ./lib & babel ./src --out-dir ./lib  --copy-files",
     "test": "node scripts/test.js --env=jsdom"

@@ -38,7 +38,7 @@ export default class LineChart extends Component {
 
     render() {
         return (
-            <div id="line" style={{marginLeft: 40}}>
+            <div style={{marginLeft: 40, marginBottom: 30}}>
                 <div className="rb-line-chart" style={{width: this.props.width, height: this.props.height}}>
                     <svg className="rb-line-chart-svg">
                         {this.__renderLines(this.props.data, this.props.meta)}

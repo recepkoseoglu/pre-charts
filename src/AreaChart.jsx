@@ -39,7 +39,7 @@ export default class AreaChart extends Component {
 
     render() {
         return (
-            <div style={{marginLeft: 40}}>
+            <div style={{marginLeft: 40, marginBottom: 30}}>
                 <div className="rb-area-chart" style={{width: this.props.width, height: this.props.height}}>
                     <svg className="rb-area-chart-svg">
                         {this.__renderAreas(this.props.data, this.props.meta)}
@@ -138,8 +138,7 @@ export default class AreaChart extends Component {
         let width = this.__xAxisWidth();
         let axisArr = [];
         for (let i = 0; i < data.length - 1; i++) {
-            let item = data[i],
-                nextItem = data[i + 1] || {};
+            let item = data[i], nextItem = data[i + 1] || {};
             axisArr.push(
                 <div key={i}
                      className="rb-area-x-axis"
