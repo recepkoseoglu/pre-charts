@@ -41,7 +41,7 @@ export default class ScatterChartSample extends Component {
     render() {
         return (
             <div>
-                <div className="form-group">
+                <div style={{padding: 15}}>
                     <ScatterChart data={data} width={300} height={200} meta={meta}/>
                 </div>
             </div>

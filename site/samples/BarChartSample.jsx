@@ -21,7 +21,7 @@ export default class BarChartSample extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{padding: 15}}>
                 <BarChart data={this.data} width={300} height={200} meta={this.meta}/>
             </div>
         );

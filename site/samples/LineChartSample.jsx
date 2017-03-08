@@ -21,7 +21,7 @@ export default class LineChartSample extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{padding: 15}}>
                 <LineChart data={this.data} width={300} height={200} meta={this.meta}/>
             </div>
         );

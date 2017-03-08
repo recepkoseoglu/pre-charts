@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Card, CardActions, CardMedia, CardTitle, CardText} from "material-ui/Card";
 import AreaChartSample from "./samples/AreaChartSample";
 import BarChartSample from "./samples/BarChartSample";
 import LineChartSample from "./samples/LineChartSample";
@@ -11,19 +12,31 @@ export default class App extends Component {
 
     render() {
         return (
-            <div style={{width: "100%"}}>
-                <div style={{width: 340, margin: "0 auto"}}>
-                    <h3>Area Chart</h3>
+            <div style={{maxWidth: 390, margin: "0 auto"}}>
+                <Card>
+                    <CardTitle title="Area Chart" subtitle="pre-charts"/>
                     <AreaChartSample/>
-                    <h3>Bar Chart</h3>
+                </Card>
+                <br/>
+                <Card>
+                    <CardTitle title="Bar Chart" subtitle="pre-charts"/>
                     <BarChartSample/>
-                    <h3>Line Chart</h3>
+                </Card>
+                <br/>
+                <Card>
+                    <CardTitle title="Line Chart" subtitle="pre-charts"/>
                     <LineChartSample/>
-                    <h3>Scatter Chart</h3>
+                </Card>
+                <br/>
+                <Card>
+                    <CardTitle title="Scatter Chart" subtitle="pre-charts"/>
                     <ScatterChartSample/>
-                    <h3>Pie Chart</h3>
+                </Card>
+                <br/>
+                <Card>
+                    <CardTitle title="Pie Chart" subtitle="pre-charts"/>
                     <PieChartSample/>
-                </div>
+                </Card>
             </div>);
     }
 }

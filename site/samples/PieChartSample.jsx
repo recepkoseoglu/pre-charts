@@ -108,11 +108,9 @@ export default class PieChartSample extends Component {
 
     render() {
         return (
-            <div>
-                <div className="form-group">
-                    <PieChart size={150} data={data1}/>
-                    <PieChart size={150} data={data2}/>
-                </div>
+            <div style={{padding: 15}}>
+                <PieChart size={170} data={data1}/>
+                <PieChart size={170} data={data2}/>
             </div>
         );
     }
