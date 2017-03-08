@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import "./LineChart.css";
+import Legend from "./Legend";
 import Arrays from "./utils/Arrays";
+import "./LineChart.css";
 
 export default class LineChart extends Component {
 
@@ -20,7 +21,11 @@ export default class LineChart extends Component {
         /**
          * Change to be made for the given data
          */
-        meta: React.PropTypes.array
+        meta: React.PropTypes.array,
+        /**
+         *
+         */
+        legendWidth: React.PropTypes.number,
     };
 
     static defaultProps = {
@@ -51,6 +56,7 @@ export default class LineChart extends Component {
                         {this.__renderXAxis()}
                     </div>
                 </div>
+                <Legend data={this.legends} width={this.props.legendWidth || this.props.width}/>
             </div>
         )
     }

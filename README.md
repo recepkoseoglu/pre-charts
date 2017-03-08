@@ -1,16 +1,16 @@
 # Pre Charts
 
-##### What's inside
-* [React](https://facebook.github.io/react/) for ui.
-* [Webpack](https://webpack.github.io/) for all development (server,hotload etc.) and build (package, optimize, etc.) needs.
-* [Babel](https://babeljs.io/) for writing codes with ES6 syntax and transpiling them browser compatible codes. 
-* [ESLint](http://eslint.org/) for protecting our nice formatted codes.
+## Installation
+
+```
+npm install --save pre-charts
+```
 
 ## AreaChart
 
 ![alt tag](./area.png)
 
-```
+```js
 let data = [
     {name: "A", public: 4000, private: 2400, protected: 2400},
     {name: "B", public: 3000, private: 1398, protected: 2210},
@@ -33,7 +33,7 @@ let meta = [
 
 ![alt tag](./bar.png)
 
-```
+```js
 let data = [
     {name: "A", public: 4000, private: 2400, protected: 2400},
     {name: "B", public: 3000, private: 1398, protected: 2210},
@@ -56,7 +56,7 @@ let meta = [
 
 ![alt tag](./line.png)
 
-```
+```js
 let data = [
     {name: "A", public: 4000, private: 2400, protected: 2400},
     {name: "B", public: 3000, private: 1398, protected: 2210},
@@ -81,7 +81,7 @@ let meta = [
 ![alt tag](./scatter.png)
 
 
-```
+```js
 const dataA = [
     {x: 100, y: 200, z: 200},
     {x: 120, y: 100, z: 260},
@@ -127,7 +127,7 @@ let meta = [
 
 ![alt tag](./pie.png)
 
-```
+```js
 
 let data = [
     {
@@ -154,4 +154,39 @@ let data = [
 
 <PieChart size={200} data={data}/>
 
+```
+
+### Quick Start
+
+#### 1. Get the latest version
+You can start by cloning the latest version of pre-charts.
+
+#### 2. Run `npm install`
+This will install both run-time project dependencies and developer tools listed
+in [package.json](./package.json) file.
+
+#### 3. How to start project in Development Mode
+
+This will start the development server and serve site application.
+
+```shell
+$ npm start
+```
+  
+Open Browser and enter `http://localhost:3000` (default) 
+
+### How to Build for Production
+
+If you need just to build the app (without running a dev server), simply run:
+
+```shell
+$ npm run build
+```
+
+### How to Build for Site
+
+If you need just to build the app (without running a dev server), simply run:
+
+```shell
+$ npm run site
 ```

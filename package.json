@@ -1,13 +1,22 @@
 {
   "name": "pre-charts",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "scripts": {
     "start": "node scripts/start.js",
     "site": "node scripts/site.js",
     "build": "rimraf ./lib & babel ./src --out-dir ./lib  --copy-files",
     "test": "node scripts/test.js --env=jsdom"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/presort/pre-charts.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "chart",
+    "chart-library"
+  ],
   "dependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2",

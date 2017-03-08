@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Legend from "./Legend";
 import Arrays from "./utils/Arrays";
 import "./ScatterChart.css";
 
@@ -20,7 +21,11 @@ export default class ScatterChart extends Component {
         /**
          * Change to be made for the given data
          */
-        meta: React.PropTypes.array
+        meta: React.PropTypes.array,
+        /**
+         *
+         */
+        legendWidth: React.PropTypes.number,
     };
 
     static defaultProps = {
@@ -51,6 +56,7 @@ export default class ScatterChart extends Component {
                         {this.__renderXAxis()}
                     </div>
                 </div>
+                <Legend data={this.legends} width={this.props.legendWidth || this.props.width}/>
             </div>
         )
     }

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import "./BarChart.css";
+import Legend from "./Legend";
 import Arrays from "./utils/Arrays";
+import "./BarChart.css";
 
 
 export default class BarChart extends Component {
@@ -21,7 +22,11 @@ export default class BarChart extends Component {
         /**
          * Change to be made for the given data
          */
-        meta: React.PropTypes.array
+        meta: React.PropTypes.array,
+        /**
+         *
+         */
+        legendWidth: React.PropTypes.number,
     };
 
     static defaultProps = {
@@ -52,6 +57,7 @@ export default class BarChart extends Component {
                         {this.__renderXAxis()}
                     </div>
                 </div>
+                <Legend data={this.legends} width={this.props.legendWidth || this.props.width}/>
             </div>
         )
     }

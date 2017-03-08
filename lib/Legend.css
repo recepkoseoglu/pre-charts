@@ -1,0 +1,14 @@
+.rb-thumbnail-box {
+    text-align: center;
+}
+
+.rb-thumbnail-box > * {
+    position: relative;
+    margin: 5px;
+    border-left: 17px solid;
+    padding-left: 5px;
+    vertical-align: top;
+    word-wrap: break-word;
+    display: inline-block;
+    transition: .5s;
+}
