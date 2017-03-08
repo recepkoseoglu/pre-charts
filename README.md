@@ -11,6 +11,9 @@ npm install --save pre-charts
 ![alt tag](./area.png)
 
 ```js
+import AreaChart from "pre-charts/lib/AreaChart";
+...
+
 let data = [
     {name: "A", public: 4000, private: 2400, protected: 2400},
     {name: "B", public: 3000, private: 1398, protected: 2210},
@@ -34,6 +37,9 @@ let meta = [
 ![alt tag](./bar.png)
 
 ```js
+import BarChart from "pre-charts/lib/BarChart";
+...
+
 let data = [
     {name: "A", public: 4000, private: 2400, protected: 2400},
     {name: "B", public: 3000, private: 1398, protected: 2210},
@@ -57,6 +63,9 @@ let meta = [
 ![alt tag](./line.png)
 
 ```js
+import LineChart from "pre-charts/lib/LineChart";
+...
+
 let data = [
     {name: "A", public: 4000, private: 2400, protected: 2400},
     {name: "B", public: 3000, private: 1398, protected: 2210},
@@ -82,6 +91,9 @@ let meta = [
 
 
 ```js
+import ScatterChart from "pre-charts/lib/ScatterChart";
+...
+
 const dataA = [
     {x: 100, y: 200, z: 200},
     {x: 120, y: 100, z: 260},
@@ -128,6 +140,8 @@ let meta = [
 ![alt tag](./pie.png)
 
 ```js
+import PieChart from "pre-charts/lib/PieChart";
+...
 
 let data = [
     {
