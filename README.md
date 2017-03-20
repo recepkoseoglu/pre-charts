@@ -22,9 +22,9 @@ let data = [
 ];
 
 let meta = [
-    {dataKey: "public", name: "Public", unit: "piece"},
-    {dataKey: "private", name: "Private", unit: "piece"},
-    {dataKey: "protected", name: "Protected", unit: "piece"}
+    {dataKey: "public", name: "Public", unit: "piece", fill: "#F44336"},
+    {dataKey: "private", name: "Private", unit: "piece", fill: "red"},
+    {dataKey: "protected", name: "Protected", unit: "piece", fill: "blue"}
 ];
 ...
 
@@ -48,9 +48,9 @@ let data = [
 ];
 
 let meta = [
-    {dataKey: "public", name: "Public", unit: "piece"},
-    {dataKey: "private", name: "Private", unit: "piece"},
-    {dataKey: "protected", name: "Protected", unit: "piece"}
+    {dataKey: "public", name: "Public", unit: "piece", fill: "blue"},
+    {dataKey: "private", name: "Private", unit: "piece", fill:"#F44336"},
+    {dataKey: "protected", name: "Protected", unit: "piece", fill: "red"}
 ];
 ...
 
@@ -74,9 +74,9 @@ let data = [
 ];
 
 let meta = [
-    {dataKey: "public", name: "Public", unit: "piece"},
-    {dataKey: "private", name: "Private", unit: "piece"},
-    {dataKey: "protected", name: "Protected", unit: "piece"}
+    {dataKey: "public", name: "Public", unit: "piece", fill:"red"},
+    {dataKey: "private", name: "Private", unit: "piece", fill:"blue"},
+    {dataKey: "protected", name: "Protected", unit: "piece", fill:"yellow"}
 ];
 ...
 
@@ -123,9 +123,9 @@ const data = [
 ];
 
 let meta = [
-    {dataKey: "x", unit: "cm", name: "X"},
-    {dataKey: "y", unit: "cm", name: "Y"},
-    {dataKey: "z", unit: "cm", name: "Z"}
+    {dataKey: "x", unit: "cm", name: "X", fill:"#F44336"},
+    {dataKey: "y", unit: "cm", name: "Y", fill:"red"},
+    {dataKey: "z", unit: "cm", name: "Z", fill:"blue"}
 ];
 
 ...
@@ -148,19 +148,22 @@ let data = [
         value: 1500,
         label: "A",
         key: "0",
-        unit: "ms"
+        unit: "ms",
+        fill:"#2196F3"
     },
     {
         value: 2500,
         label: "B",
         key: "1",
-        unit: "ms"
+        unit: "ms",
+        fill:"#F44336"
     },
     {
         value: 3000,
         label: "C",
         key: "3",
-        unit: "ms"
+        unit: "ms",
+        fill:"red"
     }
 ];
 
