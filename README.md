@@ -149,7 +149,23 @@ let data = [
         label: "A",
         key: "0",
         unit: "ms",
-        fill:"#2196F3"
+        fill:"#2196F3",
+        children:[
+                {
+                    value: 2500,
+                    label: "A1",
+                    key: "11",
+                    unit: "ms",
+                    fill:"#F44336"
+                },
+                {
+                    value: 3000,
+                    label: "A2",
+                    key: "12",
+                    unit: "ms",
+                    fill:"red"
+                }
+        ]
     },
     {
         value: 2500,
