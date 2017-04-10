@@ -60,6 +60,7 @@
     "object-assign": "4.1.1",
     "postcss-loader": "1.2.2",
     "promise": "7.1.1",
+    "react-bootstrap": "^0.30.8",
     "react-dev-utils": "^0.5.1",
     "recursive-readdir": "2.1.1",
     "rimraf": "^2.6.1",

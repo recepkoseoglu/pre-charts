@@ -1,4 +1,6 @@
-# Pre Charts
+# Pre Charts (Responsive)
+
+![Change Log](./CHANGELOG.md)
 
 ## Installation
 
@@ -28,7 +30,7 @@ let meta = [
 ];
 ...
 
-<AreaChart data={data} width={400} height={250} meta={meta}/>
+<AreaChart label={"Area Chart"} data={data} width={400} height={250} meta={meta}/>
 
 ```
 
@@ -54,7 +56,7 @@ let meta = [
 ];
 ...
 
-<BarChart data={data} width={400} height={250} meta={meta}/>
+<BarChart label={"Bar Chart"} data={data} width={400} height={250} meta={meta}/>
 
 ```
 
@@ -80,7 +82,7 @@ let meta = [
 ];
 ...
 
-<LineChart data={data} width={400} height={250} meta={meta}/>
+<LineChart label={"Line Chart"} data={data} width={400} height={250} meta={meta}/>
 
 ```
 
@@ -130,7 +132,7 @@ let meta = [
 
 ...
 
-<ScatterChart data={data} width={400} height={250} meta={meta}/>
+<ScatterChart label={"Scatter Chart"} data={data} width={400} height={250} meta={meta}/>
 
 ```
 
@@ -185,7 +187,7 @@ let data = [
 
 ...
 
-<PieChart size={200} data={data}/>
+<PieChart label={"Pie Chart"} size={200} data={data}/>
 
 ```
 

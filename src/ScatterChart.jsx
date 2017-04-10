@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ResizeComponent from "./ResizeComponent";
 import Legend from "./Legend";
 import Arrays from "./utils/Arrays";
 import "./ScatterChart.css";
@@ -7,9 +8,17 @@ export default class ScatterChart extends Component {
 
     static propTypes: Map = {
         /**
+         * Label for the form control.
+         */
+        label: React.PropTypes.any,
+        /**
          * Width for chart as px
          */
         width: React.PropTypes.number,
+        /**
+         * Min width for chart as px
+         */
+        minWidth: React.PropTypes.number,
         /**
          * Height for chart as px
          */
@@ -31,6 +40,7 @@ export default class ScatterChart extends Component {
     static defaultProps = {
         width: 500,
         height: 300,
+        minWidth: 150,
         data: [],
         meta: []
     };
@@ -38,17 +48,40 @@ export default class ScatterChart extends Component {
     legends = [];
 
     constructor(props: Object) {
-        super(props)
+        super(props);
+        this.state = {
+            scale: 1,
+            marginTop: 0
+        };
     }
 
+    __onResize = ({width, height}) => {
+        let scale = Math.max(width, this.props.minWidth) / (this.props.width + 40);
+        let margin = 100 - scale * 100;
+        this.setState({
+            scale: scale <= 1 ? scale : 1,
+            marginTop: margin > 0 ? -1 * (this.props.height / 100 + 1) * margin : 0
+        });
+    };
+
     render() {
+        let label = (this.props.label === undefined) ? undefined : (
+                <h3 className="rb-scatter-chart-label">{this.props.label}</h3>
+            );
+
         return (
-            <div style={{marginLeft: 40, marginBottom: 30}}>
+            <ResizeComponent
+                style={{
+                    transform: `scale(${this.state.scale})`,
+                    transformOrigin: "bottom left",
+                    marginTop: this.state.marginTop
+                }}
+                onResize={this.__onResize}>
+                {label}
                 <div className="rb-scatter-chart" style={{width: this.props.width, height: this.props.height}}>
                     <svg className="rb-scatter-chart-svg">
                         {this.__renderScatters(this.props.data, this.props.meta)}
                     </svg>
-                    <div className="tooltip" id="tooltip"></div>
                     <div className="rb-scatter-chart-axis">
                         {this.__renderYAxis()}
                     </div>
@@ -57,7 +90,7 @@ export default class ScatterChart extends Component {
                     </div>
                 </div>
                 <Legend data={this.legends} width={this.props.legendWidth || this.props.width}/>
-            </div>
+            </ResizeComponent>
         )
     }
 
@@ -89,10 +122,7 @@ export default class ScatterChart extends Component {
                         cy={cy}
                         r={8}
                         fill={fill}
-                        data={tooltip}
-                        onMouseOver={this.__showTooltip}
-                        onMouseOut={this.__hideTooltip}
-                        onMouseMove={this.__moveTooltip}/>);
+                        data={tooltip}/>);
 
             }
         }
@@ -182,32 +212,6 @@ export default class ScatterChart extends Component {
             }
         }
         return arr;
-    };
-
-    __showTooltip = (e: Object) => {
-        if (this.tooltip === undefined) {
-            this.tooltip = document.getElementById("tooltip");
-        }
-        this.tooltip.style.visibility = "visible";
-
-        let tooltipText = e.target.getAttribute("data");
-        let fill = e.target.getAttribute("fill");
-
-        this.tooltip.innerHTML = tooltipText;
-        this.tooltip.style.backgroundColor = fill;
-    };
-    __hideTooltip = (e: Object) => {
-        if (this.tooltip === undefined)
-            this.tooltip = document.getElementById("tooltip");
-        this.tooltip.style.visibility = "hidden";
-    };
-
-    __moveTooltip = (e: Object) => {
-        if (this.tooltip === undefined)
-            this.tooltip = document.getElementById("tooltip");
-
-        this.tooltip.style.left = (e.clientX + 10) + "px";
-        this.tooltip.style.top = (e.clientY + 10) + "px";
     };
 
     __randColor = (index: Number) => {

@@ -4,6 +4,13 @@
     position: relative;
     height: 100%;
     width: 100%;
+    margin-left: 40px;
+    margin-bottom: 30px;
+}
+
+.rb-area-chart-label {
+    margin-bottom: 15px;
+    white-space: nowrap;
 }
 
 .rb-area-chart-svg {
@@ -107,7 +114,7 @@
 
 .rb-area-y-axis:before {
     content: attr(id);
-    top: -8px;
+    top: -4px;
     left: -46px;
     text-align: right;
     position: relative;
@@ -119,7 +126,6 @@
 .rb-area-x-axis {
     height: 100%;
     border-right: 1px solid #dddddd;
-    margin-left: -1px;
 }
 
 .rb-area-x-axis:before {
@@ -138,40 +144,4 @@
     width: 100%;
     right: -50%;
     text-align: center;
-}
-
-.rb-area-chart .tooltip {
-    position: fixed;
-    left: 0;
-    top: 0;
-    opacity: 1;
-    z-index: 2;
-    border-radius: 2px;
-    visibility: hidden;
-    white-space: pre;
-    padding: 4px;
-    color: white;
-    border: 2px solid #ffffff;
-    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: start;
-    text-decoration: none;
-    text-shadow: none;
-    text-transform: none;
-    letter-spacing: normal;
-    word-break: normal;
-    word-spacing: normal;
-    word-wrap: normal;
-}
-
-.rb-area-chart:not(:hover) .tooltip,
-.rb-area-chart:not(:focus) .tooltip,
-.rb-area-chart:not(:active) .tooltip {
-    visibility: hidden;
 }

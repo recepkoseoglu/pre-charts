@@ -1,10 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import AreaChartSample from "./AreaChartSample";
+import BarChartSample from "./BarChartSample";
+import LineChartSample from "./LineChartSample";
+import ScatterChartSample from "./ScatterChartSample";
+import PieChartSample from "./PieChartSample";
+import PieChartSample2 from "./PieChartSample2";
+import Col from "react-bootstrap/lib/Col";
 
 ReactDOM.render(
-    <MuiThemeProvider>
-        <App />
-    </MuiThemeProvider>, document.getElementById('root')
-);
+    <div>
+        <Col xs={12} sm={4}>
+            <AreaChartSample/>
+        </Col>
+        <Col xs={12} sm={4}>
+            <BarChartSample/>
+        </Col>
+        <Col xs={12} sm={4}>
+            <LineChartSample/>
+        </Col>
+        <Col xs={12} sm={4}>
+            <ScatterChartSample/>
+        </Col>
+        <Col xs={12} sm={4}>
+            <PieChartSample/>
+        </Col>
+        <Col xs={12} sm={4}>
+            <PieChartSample2/>
+        </Col>
+    </div>, document.getElementById('root'));

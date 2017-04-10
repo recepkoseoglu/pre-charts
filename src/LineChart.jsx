@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ResizeComponent from "./ResizeComponent";
 import Legend from "./Legend";
 import Arrays from "./utils/Arrays";
 import "./LineChart.css";
@@ -7,9 +8,17 @@ export default class LineChart extends Component {
 
     static propTypes: Map = {
         /**
+         * Label for the form control.
+         */
+        label: React.PropTypes.any,
+        /**
          * Width for chart as px
          */
         width: React.PropTypes.number,
+        /**
+         * Min width for chart as px
+         */
+        minWidth: React.PropTypes.number,
         /**
          * Height for chart as px
          */
@@ -31,6 +40,7 @@ export default class LineChart extends Component {
     static defaultProps = {
         width: 500,
         height: 300,
+        minWidth: 150,
         data: [],
         meta: []
     };
@@ -38,17 +48,40 @@ export default class LineChart extends Component {
     legends = [];
 
     constructor(props: Object) {
-        super(props)
+        super(props);
+        this.state = {
+            scale: 1,
+            marginTop: 0
+        };
     }
 
+
+    __onResize = ({width, height}) => {
+        let scale = Math.max(width, this.props.minWidth) / (this.props.width + 40);
+        let margin = 100 - scale * 100;
+        this.setState({
+            scale: scale <= 1 ? scale : 1,
+            marginTop: margin > 0 ? -1 * (this.props.height / 100 + 1) * margin : 0
+        });
+    };
+
     render() {
+        let label = (this.props.label === undefined) ? undefined : (
+                <h3 className="rb-line-chart-label">{this.props.label}</h3>
+            );
         return (
-            <div style={{marginLeft: 40, marginBottom: 30}}>
+            <ResizeComponent
+                style={{
+                    transform: `scale(${this.state.scale})`,
+                    transformOrigin: "bottom left",
+                    marginTop: this.state.marginTop
+                }}
+                onResize={this.__onResize}>
+                {label}
                 <div className="rb-line-chart" style={{width: this.props.width, height: this.props.height}}>
                     <svg className="rb-line-chart-svg">
                         {this.__renderLines(this.props.data, this.props.meta)}
                     </svg>
-                    <div className="tooltip" id="tooltip">Tooltip</div>
                     <div className="rb-line-chart-axis">
                         {this.__renderYAxis()}
                     </div>
@@ -57,7 +90,7 @@ export default class LineChart extends Component {
                     </div>
                 </div>
                 <Legend data={this.legends} width={this.props.legendWidth || this.props.width}/>
-            </div>
+            </ResizeComponent>
         )
     }
 
@@ -93,7 +126,7 @@ export default class LineChart extends Component {
                 let tooltip = item.name + "\n" + (properties.name || key) + " : " + value + " " + (properties.unit || "") + "\n",
                     tooltipNext = nexItem.name + "\n" + (properties.name || key) + " : " + nexValue + " " + (properties.unit || "") + "\n";
 
-                let fill = properties.fill || this.__randColor(j)
+                let fill = properties.fill || this.__randColor(j);
 
                 this.legends[properties.name || key] = {fill: fill, label: properties.name || key};
 
@@ -112,9 +145,6 @@ export default class LineChart extends Component {
                         x2={x2}
                         y2={y2}
                         data={tooltip + tooltipNext}
-                        onMouseOver={this.__showTooltip}
-                        onMouseOut={this.__hideTooltip}
-                        onMouseMove={this.__moveTooltip}
                         strokeLinecap="round"
                         stroke={fill}
                         strokeWidth="4">
@@ -206,32 +236,6 @@ export default class LineChart extends Component {
         return arr;
     };
 
-    __showTooltip = (e: Object) => {
-        if (this.tooltip === undefined) {
-            this.tooltip = document.getElementById("tooltip");
-        }
-        this.tooltip.style.visibility = "visible";
-
-        let tooltipText = e.target.getAttribute("data");
-        let fill = e.target.getAttribute("stroke");
-
-        this.tooltip.innerHTML = tooltipText;
-        this.tooltip.style.backgroundColor = fill;
-    };
-
-    __hideTooltip = (e: Object) => {
-        if (this.tooltip === undefined)
-            this.tooltip = document.getElementById("tooltip");
-        this.tooltip.style.visibility = "hidden";
-    };
-
-    __moveTooltip = (e: Object) => {
-        if (this.tooltip === undefined)
-            this.tooltip = document.getElementById("tooltip");
-
-        this.tooltip.style.left = (e.clientX + 10) + "px";
-        this.tooltip.style.top = (e.clientY + 10) + "px";
-    };
 
     __randColor = (index: Number) => {
         let colors = ["#F44336", "#673AB7", "#2196F3", "#FF5722", "#9C27B0", "#FFC107", "#FF9800", "#4CAF50", "#00796B", "#009688", "#3F51B5"];
@@ -239,6 +243,6 @@ export default class LineChart extends Component {
             return colors[index % colors.length];
         }
         return colors[Math.floor(Math.random() * (colors.length - 1))];
-    }
+    };
 
 }

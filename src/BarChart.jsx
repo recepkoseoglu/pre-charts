@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ResizeComponent from "./ResizeComponent";
 import Legend from "./Legend";
 import Arrays from "./utils/Arrays";
 import "./BarChart.css";
@@ -8,9 +9,17 @@ export default class BarChart extends Component {
 
     static propTypes: Map = {
         /**
+         * Label for the form control.
+         */
+        label: React.PropTypes.any,
+        /**
          * Width for chart as px
          */
         width: React.PropTypes.number,
+        /**
+         * Min width for chart as px
+         */
+        minWidth: React.PropTypes.number,
         /**
          * Height for chart as px
          */
@@ -32,6 +41,7 @@ export default class BarChart extends Component {
     static defaultProps = {
         width: 500,
         height: 300,
+        minWidth: 150,
         data: [],
         meta: []
     };
@@ -39,17 +49,40 @@ export default class BarChart extends Component {
     legends = [];
 
     constructor(props: Object) {
-        super(props)
+        super(props);
+        this.state = {
+            scale: 1,
+            marginTop: 0
+        };
     }
 
+    __onResize = ({width, height}) => {
+
+        let scale = Math.max(width, this.props.minWidth) / (this.props.width + 40);
+        let margin = 100 - scale * 100;
+        this.setState({
+            scale: scale <= 1 ? scale : 1,
+            marginTop: margin > 0 ? -1 * (this.props.height / 100 + 1) * margin : 0
+        });
+    };
+
     render() {
+        let label = (this.props.label === undefined) ? undefined : (
+                <h3 className="rb-bar-chart-label">{this.props.label}</h3>
+            );
         return (
-            <div style={{marginLeft: 40, marginBottom: 30}}>
+            <ResizeComponent
+                style={{
+                    transform: `scale(${this.state.scale})`,
+                    transformOrigin: "bottom left",
+                    marginTop: this.state.marginTop
+                }}
+                onResize={this.__onResize}>
+                {label}
                 <div className="rb-bar-chart" style={{width: this.props.width, height: this.props.height}}>
                     <svg className="rb-bar-chart-svg">
                         {this.__renderBars(this.props.data, this.props.meta)}
                     </svg>
-                    <div className="tooltip" id="tooltip"></div>
                     <div className="rb-bar-chart-axis">
                         {this.__renderYAxis()}
                     </div>
@@ -58,7 +91,7 @@ export default class BarChart extends Component {
                     </div>
                 </div>
                 <Legend data={this.legends} width={this.props.legendWidth || this.props.width}/>
-            </div>
+            </ResizeComponent>
         )
     }
 
@@ -98,9 +131,6 @@ export default class BarChart extends Component {
                         width={barWidth}
                         height={barHeight}
                         data={tooltip}
-                        onMouseOver={this.__showTooltip}
-                        onMouseOut={this.__hideTooltip}
-                        onMouseMove={this.__moveTooltip}
                         fill={fill}/>);
 
                 pointX += barWidth;
@@ -189,32 +219,6 @@ export default class BarChart extends Component {
         return arr;
     };
 
-    __showTooltip = (e: Object) => {
-        if (this.tooltip === undefined) {
-            this.tooltip = document.getElementById("tooltip");
-        }
-        this.tooltip.style.visibility = "visible";
-
-        let tooltipText = e.target.getAttribute("data");
-        let fill = e.target.getAttribute("fill");
-
-        this.tooltip.innerHTML = tooltipText;
-        this.tooltip.style.backgroundColor = fill;
-    };
-
-    __hideTooltip = (e: Object) => {
-        if (this.tooltip === undefined)
-            this.tooltip = document.getElementById("tooltip");
-        this.tooltip.style.visibility = "hidden";
-    };
-
-    __moveTooltip = (e: Object) => {
-        if (this.tooltip === undefined)
-            this.tooltip = document.getElementById("tooltip");
-
-        this.tooltip.style.left = (e.clientX + 10) + "px";
-        this.tooltip.style.top = (e.clientY + 10) + "px";
-    };
 
     __randColor = (index: Number) => {
         let colors = ["#F44336", "#673AB7", "#2196F3", "#FF5722", "#9C27B0", "#FFC107", "#FF9800", "#4CAF50", "#00796B", "#009688", "#3F51B5"];

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import ScatterChart from "../../lib/ScatterChart";
+import ScatterChart from "../lib/ScatterChart";
 
 const dataA = [
     {x: 100, y: 200, z: 200},
@@ -40,11 +40,12 @@ export default class ScatterChartSample extends Component {
 
     render() {
         return (
-            <div>
-                <div style={{padding: 15}}>
-                    <ScatterChart data={data} width={300} height={200} meta={meta}/>
-                </div>
-            </div>
+            <ScatterChart
+                label={"Scatter Chart"}
+                data={data}
+                meta={meta}
+                width={300}
+                height={200}/>
         );
     }
 }

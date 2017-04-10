@@ -1,8 +1,9 @@
-.rb-thumbnail-box {
+.pre-thumbnail {
     text-align: center;
+    margin-bottom: 20px;
 }
 
-.rb-thumbnail-box > * {
+.pre-thumbnail > * {
     position: relative;
     margin: 5px;
     border-left: 17px solid;

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import AreaChart from "../../lib/AreaChart";
+import LineChart from "../lib/LineChart";
 
-export default class AreaChartSample extends Component {
+export default class LineChartSample extends Component {
 
     data = [
         {name: "A", public: 4000, private: 2400, protected: 2400},
@@ -21,9 +21,12 @@ export default class AreaChartSample extends Component {
 
     render() {
         return (
-            <div style={{padding: 15}}>
-                <AreaChart data={this.data} width={300} height={200} meta={this.meta}/>
-            </div>
+            <LineChart
+                label={"Line Chart"}
+                data={this.data}
+                meta={this.meta}
+                width={300}
+                height={200}/>
         );
     }
 

@@ -18,8 +18,8 @@ export default class Legend extends Component {
         return (
             <div
                 className={this.props.className}
-                style={{width: this.props.width, marginTop: 20}}>
-                <div className="rb-thumbnail-box">
+                style={{width: this.props.width, marginTop: 20, marginLeft: 40, ...this.props.style}}>
+                <div className="pre-thumbnail">
                     {this.__renderLegend()}
                 </div>
             </div>
@@ -32,7 +32,7 @@ export default class Legend extends Component {
             if (legends.hasOwnProperty(key)) {
                 let lengend = legends[key];
                 arr.push(
-                    <div style={{borderColor: lengend.fill, color: lengend.fill}}>
+                    <div key={key} style={{borderColor: lengend.fill, color: lengend.fill}}>
                         {lengend.label}
                     </div>)
             }

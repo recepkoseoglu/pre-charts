@@ -1,10 +1,15 @@
 import React, {Component} from "react";
+import ResizeComponent from "./ResizeComponent";
 import Legend from "./Legend";
 import "./PieChart.css";
 
 export default class PieChart extends Component {
 
     static propTypes: Map = {
+        /**
+         * Label for the form control.
+         */
+        label: React.PropTypes.any,
         /**
          * Data to be plotted on the chart
          */
@@ -14,6 +19,10 @@ export default class PieChart extends Component {
          */
         size: React.PropTypes.number,
         /**
+         * Min width for chart as px
+         */
+        minSize: React.PropTypes.number,
+        /**
          *
          */
         legendWidth: React.PropTypes.number,
@@ -21,6 +30,7 @@ export default class PieChart extends Component {
 
     static defaultProps = {
         size: 400,
+        minSize: 150,
         data: []
     };
 
@@ -29,6 +39,8 @@ export default class PieChart extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {
+            scale: 1,
+            marginTop: 0,
             data: this.props.data,
             clicked: false
         }
@@ -37,6 +49,15 @@ export default class PieChart extends Component {
     componentWillReceiveProps(nextProps: Object) {
         this.setState({data: nextProps.data})
     }
+
+    __onResize = ({width, height}) => {
+        let scale = Math.max(width, this.props.minSize) / (this.props.size );
+        let margin = 100 - scale * 100;
+        this.setState({
+            scale: scale <= 1 ? scale : 1,
+            marginTop: margin > 0 ? -1 * (this.props.size / 100 + 0.5 ) * margin : 0
+        });
+    };
 
     render() {
         let data = this.state.data;
@@ -54,18 +75,31 @@ export default class PieChart extends Component {
                 r={mRadius}/>) :
             undefined;
 
+        let label = (this.props.label === undefined) ? undefined : (
+                <h3 className="rb-pie-chart-label">{this.props.label}</h3>
+            );
+
         return (
-            <div className="rb-pie-chart" style={{width: this.props.size, height: this.props.size}}>
-                <svg className="rb-pie-chart-svg">
-                    {this.__renderPies(data, 360, 0, depth, depth - 1)}
-                    {root}
-                </svg>
-                <div className="tooltip" id="tooltip"></div>
-                <div className="rb-pie-chart-back-tool" style={{display: this.state.clicked ? "inherit" : "none"}}>
-                    <a onClick={this.__onClickReset}>reset</a>
+            <ResizeComponent
+                style={{
+                    transform: `scale(${this.state.scale})`,
+                    transformOrigin: "bottom left",
+                    marginTop: this.state.marginTop
+                }}
+                onResize={this.__onResize}>
+                {label}
+                <div className="rb-pie-chart" style={{width: this.props.size, height: this.props.size}}>
+                    <svg className="rb-pie-chart-svg">
+                        {this.__renderPies(data, 360, 0, depth, depth - 1)}
+                        {root}
+                    </svg>
+                    <div className="rb-pie-chart-back-tool" style={{display: this.state.clicked ? "inherit" : "none"}}>
+                        <a onClick={this.__onClickReset}>reset</a>
+                    </div>
+                    <Legend data={this.legends} width={this.props.legendWidth || this.props.size}
+                            style={{marginLeft: 0}}/>
                 </div>
-                <Legend data={this.legends} width={this.props.legendWidth || this.props.size}/>
-            </div>
+            </ResizeComponent>
         )
     }
 
@@ -143,9 +177,6 @@ export default class PieChart extends Component {
                         d={'M ' + origin + ' ' + origin + ' V ' + V + ' A ' + mRadius + ' ' + mRadius + ' 1 ' + arcSweep + ' 1 ' + X + '  ' + Y + " z"}
                         fill={fill}
                         data={tooltip}
-                        onMouseOver={this.__showTooltip}
-                        onMouseOut={this.__hideTooltip}
-                        onMouseMove={this.__moveTooltip}
                         style={{cursor: cursor}}
                         onClick={this.__onClick.bind(undefined, item)}>
                         <animateTransform
@@ -196,32 +227,6 @@ export default class PieChart extends Component {
         return max;
     };
 
-    __showTooltip = (e: Object) => {
-        if (this.tooltip === undefined) {
-            this.tooltip = document.getElementById("tooltip");
-        }
-        this.tooltip.style.visibility = "visible";
-
-        let tooltipText = e.target.getAttribute("data");
-        let fill = e.target.getAttribute("fill");
-
-        this.tooltip.innerHTML = tooltipText;
-        this.tooltip.style.backgroundColor = fill;
-    };
-
-    __hideTooltip = (e: Object) => {
-        if (this.tooltip === undefined)
-            this.tooltip = document.getElementById("tooltip");
-        this.tooltip.style.visibility = "hidden";
-    };
-
-    __moveTooltip = (e: Object) => {
-        if (this.tooltip === undefined)
-            this.tooltip = document.getElementById("tooltip");
-
-        this.tooltip.style.left = (e.clientX + 10) + "px";
-        this.tooltip.style.top = (e.clientY + 10) + "px";
-    };
 
     __randColor = (index: Number) => {
         let colors = ["#F44336", "#2196F3", "#E91E63", "#00BCD4", "#673AB7", "#009688", "#3F51B5", "#4CAF50", "#FF9800", "#FF5722", "#FFC107"];
