@@ -1,6 +1,6 @@
 {
   "name": "pre-charts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "start": "node scripts/start.js",
     "site": "node scripts/site.js",
